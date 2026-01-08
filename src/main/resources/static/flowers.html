@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flowers - Bloosm</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>🌸 Bloosm</h1>
+                    <p>Flower Shop</p>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="flowers.html" class="active">Flowers</a></li>
+                        <li><a href="cart.html">Cart <span id="cartCount" class="badge">0</span></a></li>
+                        <li><a href="orders.html">Orders</a></li>
+                        <li><a href="customer.html">Profile</a></li>
+                        <li id="authNav"><a href="login.html">Login</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Flowers Section -->
+    <section class="flowers-page">
+        <div class="container">
+            <h2 class="section-title">All Flowers</h2>
+            
+            <!-- Search and Filter -->
+            <div class="search-filter">
+                <input type="text" id="searchInput" placeholder="Search flowers..." class="search-box">
+                <select id="categoryFilter" class="filter-select">
+                    <option value="">All Categories</option>
+                    <option value="Roses">Roses</option>
+                    <option value="Tulips">Tulips</option>
+                    <option value="Orchids">Orchids</option>
+                    <option value="Bouquets">Bouquets</option>
+                </select>
+            </div>
+
+            <!-- Flowers Grid -->
+            <div id="flowersGrid" class="flower-grid">
+                <!-- Flowers will be loaded here dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Bloosm Flower Shop. All Rights Reserved.</p>
+            <p>📞 Phone: +94 77 123 4567 | 📧 Email: info@bloosm.lk</p>
+        </div>
+    </footer>
+
+    <script src="js/auth-nav.js"></script>
+    <script src="js/flowers.js"></script>
+</body>
+</html>

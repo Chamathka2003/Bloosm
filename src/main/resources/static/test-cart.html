@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cart Debug Test</title>
+    <style>
+        body { font-family: Arial; padding: 20px; background: #f5f5f5; }
+        .section { background: white; padding: 20px; margin: 10px 0; border-radius: 5px; }
+        button { padding: 10px 20px; background: #ff1493; color: white; border: none; border-radius: 5px; cursor: pointer; margin: 5px; }
+        button:hover { background: #ff0080; }
+        .info { background: #e8f5e9; padding: 10px; margin: 10px 0; border-left: 4px solid #4caf50; }
+        .error { background: #ffebee; padding: 10px; margin: 10px 0; border-left: 4px solid #f44336; }
+        pre { background: #263238; color: #aed581; padding: 15px; border-radius: 5px; overflow: auto; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Cart Debug Tool</h1>
+    
+    <div class="section">
+        <h2>Current Storage Status</h2>
+        <button onclick="checkStorage()">Check LocalStorage</button>
+        <button onclick="clearStorage()">Clear LocalStorage</button>
+        <div id="storageInfo"></div>
+    </div>
+    
+    <div class="section">
+        <h2>Test Login</h2>
+        <input type="text" id="username" placeholder="Username" value="cham">
+        <input type="password" id="password" placeholder="Password" value="1234">
+        <button onclick="testLogin()">Login</button>
+        <div id="loginInfo"></div>
+    </div>
+    
+    <div class="section">
+        <h2>Test Add to Cart</h2>
+        <input type="number" id="flowerId" placeholder="Flower ID" value="1">
+        <button onclick="testAddToCart()">Add Flower to Cart</button>
+        <div id="addInfo"></div>
+    </div>
+    
+    <div class="section">
+        <h2>Test Get Cart</h2>
+        <button onclick="testGetCart()">Get Cart Items</button>
+        <div id="cartInfo"></div>
+    </div>
+    
+    <script>
+        const API_BASE_URL = 'http://localhost:8080/api';
+        
+        function checkStorage() {
+            const user = localStorage.getItem('user');
+            const customerId = localStorage.getItem('customerId');
+            const token = localStorage.getItem('token');
+            
+            let html = '<div class="info">';
+            html += '<h3>LocalStorage Contents:</h3>';
+            html += '<pre>user: ' + (user || 'NOT SET') + '</pre>';
+            html += '<pre>customerId: ' + (customerId || 'NOT SET') + '</pre>';
+            html += '<pre>token: ' + (token || 'NOT SET') + '</pre>';
+            html += '</div>';
+            
+            document.getElementById('storageInfo').innerHTML = html;
+        }
+        
+        function clearStorage() {
+            localStorage.clear();
+            document.getElementById('storageInfo').innerHTML = '<div class="info">✓ LocalStorage cleared!</div>';
+        }
+        
+        async function testLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/users/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                const data = await response.json();
+                
+                if (data.id) {
+                    localStorage.setItem('user', JSON.stringify(data));
+                    localStorage.setItem('customerId', data.id.toString());
+                    
+                    let html = '<div class="info">';
+                    html += '<h3>✓ Login Successful</h3>';
+                    html += '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+                    html += '<p><strong>Customer ID set to: ' + data.id + '</strong></p>';
+                    html += '</div>';
+                    document.getElementById('loginInfo').innerHTML = html;
+                } else {
+                    document.getElementById('loginInfo').innerHTML = '<div class="error">Login failed!</div>';
+                }
+            } catch (error) {
+                document.getElementById('loginInfo').innerHTML = '<div class="error">Error: ' + error.message + '</div>';
+            }
+        }
+        
+        async function testAddToCart() {
+            const flowerId = document.getElementById('flowerId').value;
+            const customerId = localStorage.getItem('customerId');
+            
+            if (!customerId) {
+                document.getElementById('addInfo').innerHTML = '<div class="error">❌ No customer ID found! Please login first.</div>';
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/cart`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        customerId: customerId,
+                        flowerId: flowerId,
+                        quantity: 1
+                    })
+                });
+                
+                const data = await response.json();
+                
+                let html = '<div class="info">';
+                html += '<h3>✓ Add to Cart Response</h3>';
+                html += '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+                html += '<p><strong>Sent Customer ID: ' + customerId + '</strong></p>';
+                html += '<p><strong>Returned Customer ID: ' + (data.customerId || 'N/A') + '</strong></p>';
+                if (customerId !== String(data.customerId)) {
+                    html += '<p style="color: red;"><strong>⚠️ WARNING: Customer ID MISMATCH!</strong></p>';
+                }
+                html += '</div>';
+                document.getElementById('addInfo').innerHTML = html;
+                
+                // Update localStorage if server returned different ID
+                if (data.customerId) {
+                    localStorage.setItem('customerId', data.customerId.toString());
+                }
+            } catch (error) {
+                document.getElementById('addInfo').innerHTML = '<div class="error">Error: ' + error.message + '</div>';
+            }
+        }
+        
+        async function testGetCart() {
+            const customerId = localStorage.getItem('customerId');
+            
+            if (!customerId) {
+                document.getElementById('cartInfo').innerHTML = '<div class="error">❌ No customer ID found! Please login first.</div>';
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/cart/${customerId}`);
+                const data = await response.json();
+                
+                let html = '<div class="info">';
+                html += '<h3>Cart Contents for Customer ID: ' + customerId + '</h3>';
+                html += '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+                html += '<p><strong>Total Items: ' + data.length + '</strong></p>';
+                html += '</div>';
+                document.getElementById('cartInfo').innerHTML = html;
+            } catch (error) {
+                document.getElementById('cartInfo').innerHTML = '<div class="error">Error: ' + error.message + '</div>';
+            }
+        }
+        
+        // Check storage on page load
+        window.onload = checkStorage;
+    </script>
+</body>
+</html>

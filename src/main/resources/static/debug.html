@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug - Bloosm</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .debug-box {
+            background: white;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #ff1493;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #ff0080;
+        }
+        pre {
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 Debug Panel</h1>
+    
+    <div class="debug-box">
+        <h2>Customer ID</h2>
+        <p>Current: <strong id="currentCustomerId"></strong></p>
+        <button onclick="checkCustomerId()">Check Customer ID</button>
+        <button onclick="resetCustomerId()">Reset to Guest (ID: 1)</button>
+    </div>
+
+    <div class="debug-box">
+        <h2>Cart Items</h2>
+        <button onclick="loadCartDebug()">Load Cart</button>
+        <button onclick="clearLocalStorage()">Clear LocalStorage</button>
+        <pre id="cartOutput">Click "Load Cart" to see items</pre>
+    </div>
+
+    <div class="debug-box">
+        <h2>Quick Actions</h2>
+        <button onclick="addTestFlower()">Add Test Flower (ID: 1)</button>
+        <button onclick="window.location.href='flowers.html'">Go to Flowers</button>
+        <button onclick="window.location.href='cart.html'">Go to Cart</button>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:8080/api';
+
+        function getCurrentCustomerId() {
+            const userStr = localStorage.getItem('user');
+            if (userStr) {
+                const user = JSON.parse(userStr);
+                return user.id.toString();
+            }
+            
+            let customerId = localStorage.getItem('customerId');
+            if (!customerId) {
+                customerId = '1';
+                localStorage.setItem('customerId', customerId);
+            }
+            return customerId;
+        }
+
+        function checkCustomerId() {
+            const id = getCurrentCustomerId();
+            document.getElementById('currentCustomerId').textContent = id;
+            console.log('Customer ID:', id);
+        }
+
+        function resetCustomerId() {
+            localStorage.setItem('customerId', '1');
+            checkCustomerId();
+            alert('Customer ID reset to 1 (Guest)');
+        }
+
+        function loadCartDebug() {
+            const customerId = getCurrentCustomerId();
+            fetch(`${API_BASE_URL}/cart/${customerId}`)
+                .then(response => response.json())
+                .then(cartItems => {
+                    document.getElementById('cartOutput').textContent = 
+                        JSON.stringify(cartItems, null, 2);
+                    console.log('Cart Items:', cartItems);
+                })
+                .catch(error => {
+                    document.getElementById('cartOutput').textContent = 
+                        'Error: ' + error.message;
+                    console.error('Error:', error);
+                });
+        }
+
+        function clearLocalStorage() {
+            localStorage.clear();
+            alert('LocalStorage cleared!');
+            checkCustomerId();
+        }
+
+        function addTestFlower() {
+            const customerId = getCurrentCustomerId();
+            fetch(`${API_BASE_URL}/cart`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    customerId: customerId,
+                    flowerId: 1,
+                    quantity: 1
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Response:', data);
+                
+                // Update customer ID from response
+                if (data.cartItem && data.cartItem.customer) {
+                    localStorage.setItem('customerId', data.cartItem.customer.id.toString());
+                }
+                
+                alert('Flower added! Check cart.');
+                loadCartDebug();
+            })
+            .catch(error => {
+                alert('Error: ' + error.message);
+                console.error('Error:', error);
+            });
+        }
+
+        // Initialize
+        checkCustomerId();
+    </script>
+</body>
+</html>

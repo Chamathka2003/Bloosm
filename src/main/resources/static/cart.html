@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - Bloosm</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>🌸 Bloosm</h1>
+                    <p>Flower Shop</p>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="flowers.html">Flowers</a></li>
+                        <li><a href="cart.html" class="active">Cart <span id="cartCount" class="badge">0</span></a></li>
+                        <li><a href="orders.html">Orders</a></li>
+                        <li><a href="customer.html">Profile</a></li>
+                        <li id="authNav"><a href="login.html">Login</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Cart Section -->
+    <section class="cart-page">
+        <div class="container">
+            <h2 class="section-title">Your Cart</h2>
+            
+            <div id="cartContent">
+                <div id="cartItems" class="cart-items">
+                    <!-- Cart items will be loaded here -->
+                </div>
+
+                <div class="cart-summary">
+                    <h3>Order Summary</h3>
+                    <div class="summary-row">
+                        <span>Total Items:</span>
+                        <span id="totalItems">0</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total Amount:</span>
+                        <span id="totalAmount">Rs. 0.00</span>
+                    </div>
+                    <button onclick="checkout()" class="btn btn-primary btn-block" style="font-size: 1.1rem; padding: 15px;">🛒 Proceed to Checkout</button>
+                    <button onclick="clearCart()" class="btn btn-secondary btn-block">Clear Cart</button>
+                </div>
+            </div>
+
+            <div id="emptyCart" class="empty-cart" style="display: none;">
+                <div style="text-align: center; padding: 3rem;">
+                    <div style="font-size: 5rem; margin-bottom: 1rem;">🛒</div>
+                    <h2 style="color: #ff1493; margin-bottom: 1rem;">Your cart is empty!</h2>
+                    <p style="color: #666; margin-bottom: 2rem;">Browse our beautiful flowers and add some to your cart.</p>
+                    <a href="flowers.html" class="btn btn-primary">🌸 Shop Flowers</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCheckoutModal()">&times;</span>
+            <h2>🛒 Complete Your Order</h2>
+            <p style="color: #666; margin-bottom: 20px;">Please provide your details to complete the order</p>
+            <form id="checkoutForm">
+                <div class="form-group">
+                    <label for="customerName">Full Name: <span style="color:red;">*</span></label>
+                    <input type="text" id="customerName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerEmail">Email Address: <span style="color:red;">*</span></label>
+                    <input type="email" id="customerEmail" placeholder="your.email@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerPhone">Phone Number: <span style="color:red;">*</span></label>
+                    <input type="tel" id="customerPhone" placeholder="+94 77 123 4567" required pattern="[0-9+\s-]+">
+                </div>
+                <div class="form-group">
+                    <label for="deliveryAddress">Delivery Address: <span style="color:red;">*</span></label>
+                    <textarea id="deliveryAddress" rows="3" placeholder="Enter your complete delivery address" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="orderNotes">Special Instructions (Optional):</label>
+                    <textarea id="orderNotes" rows="2" placeholder="Any special requests or delivery instructions?"></textarea>
+                </div>
+                <div class="order-summary-box">
+                    <h3>Order Summary</h3>
+                    <div class="summary-row">
+                        <span>Total Items:</span>
+                        <span id="checkoutTotalItems">0</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total Amount:</span>
+                        <span id="checkoutTotalAmount">Rs. 0.00</span>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Place Order Now</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Bloosm Flower Shop. All rights reserved.</p>
+            <p>📞 Phone: +94 77 123 4567 | 📧 Email: info@bloosm.lk</p>
+        </div>
+    </footer>
+
+    <script src="js/auth-nav.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+</html>

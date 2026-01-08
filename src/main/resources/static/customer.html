@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Bloosm</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>🌸 Bloosm</h1>
+                    <p>Flower Shop</p>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="flowers.html">Flowers</a></li>
+                        <li><a href="cart.html">Cart <span id="cartCount" class="badge">0</span></a></li>
+                        <li><a href="orders.html">Orders</a></li>
+                        <li><a href="customer.html" class="active">Profile</a></li>
+                        <li id="authNav"><a href="login.html">Login</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Customer Section -->
+    <section class="customer-page">
+        <div class="container">
+            <h2 class="section-title">My Profile</h2>
+            
+            <div class="customer-info">
+                <form id="customerForm">
+                    <div class="form-group">
+                        <label>Name:</label>
+                        <input type="text" id="customerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input type="email" id="customerEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone:</label>
+                        <input type="tel" id="customerPhone">
+                    </div>
+                    <div class="form-group">
+                        <label>Address:</label>
+                        <textarea id="customerAddress" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                </form>
+            </div>
+
+            <div class="customer-stats">
+                <h3>ඇණවුම් සංඛ්‍යාන</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h4 id="totalOrders">0</h4>
+                        <p>මුළු ඇණවුම්</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4 id="pendingOrders">0</h4>
+                        <p>බලා සිටින ඇණවුම්</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4 id="completedOrders">0</h4>
+                        <p>සම්පූර්ණ ඇණවුම්</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Bloosm Flower Shop. All rights reserved.</p>
+            <p>📞 Phone: +94 77 123 4567 | 📧 Email: info@bloosm.lk</p>
+        </div>
+    </footer>
+
+    <script src="js/auth-nav.js"></script>
+    <script src="js/customer.js"></script>
+</body>
+</html>

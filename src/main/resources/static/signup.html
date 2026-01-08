@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Bloosm Flower Shop</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .auth-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .auth-container h2 {
+            text-align: center;
+            color: #ff1493;
+            margin-bottom: 10px;
+        }
+        .role-info {
+            text-align: center;
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 25px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .role-info strong {
+            color: #ff1493;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #ff1493;
+            box-shadow: 0 0 5px rgba(255, 20, 147, 0.3);
+        }
+        .form-group select:focus {
+            outline: none;
+            border-color: #ff1493;
+            box-shadow: 0 0 5px rgba(255, 20, 147, 0.3);
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #ff1493 0%, #ff0080 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3);
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 20, 147, 0.4);
+        }
+        .auth-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+        .auth-link a {
+            color: #ff1493;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .auth-link a:hover {
+            text-decoration: underline;
+        }
+        .error-message {
+            color: #f44336;
+            text-align: center;
+            margin-bottom: 15px;
+            display: none;
+        }
+        .success-message {
+            color: #4caf50;
+            text-align: center;
+            margin-bottom: 15px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <h1>🌸 Bloosm Flower Shop</h1>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="flowers.html">Flowers</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="signup.html" class="active">Sign Up</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="auth-container">
+        <h2>Create Your Account</h2>
+        <div class="role-info">
+            <strong>Role 1:</strong> Admin Dashboard Access | <strong>Role 2:</strong> Customer Shopping Site
+        </div>
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+        
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="role">Account Type</label>
+                <select id="role" name="role" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;">
+                    <option value="USER">Customer Account (Role 2)</option>
+                    <option value="ADMIN">Admin Account (Role 1)</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn-submit">Sign Up</button>
+        </form>
+        
+        <div class="auth-link">
+            Already have an account? <a href="login.html">Login here</a>
+        </div>
+    </div>
+
+    <script src="js/signup.js"></script>
+</body>
+</html>
