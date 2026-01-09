@@ -1,19 +1,19 @@
 # Bloosm - GitHub Achievement Demo 🚀🌸
 This repo is for earning GitHub achievements with a complete Spring Boot flower shop application!
 
-## Bloosm මල් සාප්පුව 🌸
+## Bloosm Flower Shop 🌸
 
-Spring Boot භාවිතයෙන් නිර්මාණය කරන ලද මල් වෙළඳ වෙබ් අඩවිය
+A flower trading website built using Spring Boot
 
-## විශේෂාංග
+## Features
 
-- 🌸 මල් නිෂ්පාදන නාමාවලිය
-- 🛒 සාප්පු කරත්තය
-- 📦 ඇණවුම් කළමනාකරණය
-- 👤 පාරිභෝගික පැතිකඩ
-- 💳 Checkout පද්ධතිය
+- 🌸 Flower product catalog
+- 🛒 Shopping cart
+- 📦 Order management
+- 👤 Customer profiles
+- 💳 Checkout system
 
-## තාක්ෂණික විස්තර
+## Technical Details
 
 ### Backend
 - Spring Boot 3.2.1
@@ -27,47 +27,47 @@ Spring Boot භාවිතයෙන් නිර්මාණය කරන ල�
 - Vanilla JavaScript
 - Responsive Design
 
-## ස්ථාපනය
+## Installation
 
-### අවශ්‍ය දේ
+### Requirements
 - Java 17+
 - Maven 3.6+
 - MySQL 8.0+
 
-### දත්ත සමුදාය හැඩගැස්වීම
+### Database Configuration
 
-1. MySQL server එක ආරම්භ කරන්න
-2. පහත විධානයෙන් database එක සාදන්න:
+1. Start MySQL server
+2. Create database using the following command:
 
 ```sql
 CREATE DATABASE bloosm_db;
 ```
 
-3. `application.properties` file එකේ database තොරතුරු යාවත්කාලීන කරන්න:
+3. Update database information in the `application.properties` file:
 
 ```properties
 spring.datasource.username=your_mysql_username
 spring.datasource.password=your_mysql_password
 ```
 
-### ව්‍යාපෘතිය ක්‍රියාත්මක කිරීම
+### Running the Project
 
-1. Project folder එකට යන්න:
+1. Navigate to project folder:
 ```bash
 cd bloosm
 ```
 
-2. Maven භාවිතයෙන් build කරන්න:
+2. Build using Maven:
 ```bash
 mvn clean install
 ```
 
-3. Application එක ආරම්භ කරන්න:
+3. Start the application:
 ```bash
 mvn spring-boot:run
 ```
 
-4. Browser එකෙන් විවෘත කරන්න:
+4. Open in browser:
 ```
 http://localhost:8080
 ```
@@ -75,37 +75,37 @@ http://localhost:8080
 ## API Endpoints
 
 ### Flowers
-- GET `/api/flowers` - සියලු මල්
-- GET `/api/flowers/available` - තොගයේ ඇති මල්
-- GET `/api/flowers/{id}` - විශේෂිත මලක් ලබාගන්න
-- GET `/api/flowers/category/{category}` - වර්ගය අනුව මල්
-- GET `/api/flowers/search?keyword={keyword}` - මල් සොයන්න
-- POST `/api/flowers` - නව මලක් එකතු කරන්න
-- PUT `/api/flowers/{id}` - මල යාවත්කාලීන කරන්න
-- DELETE `/api/flowers/{id}` - මල මකන්න
+- GET `/api/flowers` - All flowers
+- GET `/api/flowers/available` - Available flowers in stock
+- GET `/api/flowers/{id}` - Get specific flower
+- GET `/api/flowers/category/{category}` - Flowers by category
+- GET `/api/flowers/search?keyword={keyword}` - Search flowers
+- POST `/api/flowers` - Add new flower
+- PUT `/api/flowers/{id}` - Update flower
+- DELETE `/api/flowers/{id}` - Delete flower
 
 ### Cart
-- GET `/api/cart/{customerId}` - කරත්තයේ අයිතම
-- POST `/api/cart` - කරත්තයට එකතු කරන්න
-- PUT `/api/cart/{cartItemId}` - ප්‍රමාණය යාවත්කාලීන කරන්න
-- DELETE `/api/cart/{cartItemId}` - අයිතමය ඉවත් කරන්න
-- DELETE `/api/cart/clear/{customerId}` - කරත්තය හිස් කරන්න
+- GET `/api/cart/{customerId}` - Cart items
+- POST `/api/cart` - Add to cart
+- PUT `/api/cart/{cartItemId}` - Update quantity
+- DELETE `/api/cart/{cartItemId}` - Remove item
+- DELETE `/api/cart/clear/{customerId}` - Clear cart
 
 ### Orders
-- GET `/api/orders` - සියලු ඇණවුම්
-- GET `/api/orders/{id}` - විශේෂිත ඇණවුමක්
-- GET `/api/orders/customer/{customerId}` - පාරිභෝගිකයාගේ ඇණවුම්
-- POST `/api/orders` - නව ඇණවුමක් සාදන්න
-- PUT `/api/orders/{orderId}/status` - ඇණවුම් තත්වය යාවත්කාලීන කරන්න
+- GET `/api/orders` - All orders
+- GET `/api/orders/{id}` - Specific order
+- GET `/api/orders/customer/{customerId}` - Customer's orders
+- POST `/api/orders` - Create new order
+- PUT `/api/orders/{orderId}/status` - Update order status
 
 ### Customers
-- GET `/api/customers` - සියලු පාරිභෝගිකයින්
-- GET `/api/customers/{id}` - විශේෂිත පාරිභෝගිකයෙක්
-- GET `/api/customers/email/{email}` - email අනුව සොයන්න
-- POST `/api/customers` - නව පාරිභෝගිකයෙක් ලියාපදිංචි කරන්න
-- PUT `/api/customers/{id}` - පැතිකඩ යාවත්කාලීන කරන්න
+- GET `/api/customers` - All customers
+- GET `/api/customers/{id}` - Specific customer
+- GET `/api/customers/email/{email}` - Search by email
+- POST `/api/customers` - Register new customer
+- PUT `/api/customers/{id}` - Update profile
 
-## ව්‍යුහය
+## Structure
 
 ```
 bloosm/
@@ -134,13 +134,13 @@ bloosm/
 └── README.md
 ```
 
-## දායකත්වය
+## Contributing
 
-මෙම ව්‍යාපෘතිය වැඩිදියුණු කිරීම සඳහා ඔබේ දායකත්වය සාදරයෙන් පිළිගනිමු!
+Your contributions to improve this project are welcome!
 
-## බලපත්‍රය
+## License
 
-© 2025 Bloosm මල් සාප්පුව. සියලු හිමිකම් ඇවිරිණි.
+© 2025 Bloosm Flower Shop. All rights reserved.
 
 ---
 *This repository is part of my GitHub achievements journey! 🎯*
