@@ -1,5 +1,5 @@
-# GitHub Achievement Demo 🚀
-This repo is for earning GitHub achievements.
+# Bloosm - GitHub Achievement Demo 🚀🌸
+This repo is for earning GitHub achievements with a complete Spring Boot flower shop application!
 
 ## Bloosm මල් සාප්පුව 🌸
 
@@ -141,3 +141,6 @@ bloosm/
 ## බලපත්‍රය
 
 © 2025 Bloosm මල් සාප්පුව. සියලු හිමිකම් ඇවිරිණි.
+
+---
+*This repository is part of my GitHub achievements journey! 🎯*
