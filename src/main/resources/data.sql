@@ -1,5 +1,5 @@
 -- Sample data for flowers
-INSERT IGNORE INTO flowers (name, description, price, stock_quantity, image_url, category, color, available) VALUES
+MERGE INTO flowers (name, description, price, stock_quantity, image_url, category, color, available) KEY(name) VALUES
 ('Red Roses', 'Beautiful red roses expressing love and feelings', 1350.00, 50, 'images/r1.avif', 'Roses', 'Red', TRUE),
 ('White Roses', 'Pure white roses symbolizing peace', 1500.00, 40, 'images/whiterose.jpg', 'Roses', 'White', TRUE),
 ('Premium Red Rose Bouquet', 'Stunning bouquet of fresh red roses perfect for special occasions', 1800.00, 15, 'images/cat1rose.webp', 'Roses', 'Red', TRUE),
@@ -25,15 +25,15 @@ INSERT IGNORE INTO flowers (name, description, price, stock_quantity, image_url,
 ('Jasmine Flowers', 'Fragrant jasmine flowers', 100.00, 60, NULL, 'Other', 'White', TRUE);
 
 -- Sample users (password is same as username for demo)
-INSERT IGNORE INTO users (username, email, password, role, active, created_date) VALUES
+MERGE INTO users (username, email, password, role, active, created_date) KEY(username) VALUES
 ('admin', 'admin@bloosm.lk', 'admin', 'ADMIN', TRUE, CURRENT_TIMESTAMP);
 
-INSERT IGNORE INTO users (username, email, password, role, active, created_date) VALUES
+MERGE INTO users (username, email, password, role, active, created_date) KEY(username) VALUES
 ('user', 'user@bloosm.lk', 'user', 'USER', TRUE, CURRENT_TIMESTAMP);
 
-INSERT IGNORE INTO users (username, email, password, role, active, created_date) VALUES
+MERGE INTO users (username, email, password, role, active, created_date) KEY(username) VALUES
 ('john', 'john@example.com', 'john123', 'USER', TRUE, CURRENT_TIMESTAMP);
 
 -- Sample customer for guest/default cart
-INSERT IGNORE INTO customers (name, email, phone, address, registered_date) VALUES
+MERGE INTO customers (name, email, phone, address, registered_date) KEY(email) VALUES
 ('Guest Customer', 'guest@bloosm.lk', '0771234567', 'Colombo, Sri Lanka', CURRENT_TIMESTAMP);

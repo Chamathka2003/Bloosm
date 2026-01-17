@@ -14,6 +14,9 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
     
+    @Autowired
+    private AchievementService achievementService;
+    
     public List<Customer> getAllCustomers() {
         return customerRepository.findAll();
     }
@@ -27,6 +30,8 @@ public class CustomerService {
     }
     
     public Customer saveCustomer(Customer customer) {
+        boolean isNewCustomer = (customer.getId() == null);
+        
         // Allow setting custom ID if provided, otherwise auto-generate
         if (customer.getId() != null) {
             // Check if customer with this ID already exists
@@ -42,7 +47,15 @@ public class CustomerService {
                 throw new RuntimeException("Customer with this email already exists");
             }
         }
-        return customerRepository.save(customer);
+        
+        Customer savedCustomer = customerRepository.save(customer);
+        
+        // Check achievements for new customers
+        if (isNewCustomer) {
+            achievementService.checkRegistrationAchievements(savedCustomer);
+        }
+        
+        return savedCustomer;
     }
     
     public Customer updateCustomer(Long id, Customer customerDetails) {

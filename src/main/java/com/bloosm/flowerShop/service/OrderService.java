@@ -30,6 +30,9 @@ public class OrderService {
     @Autowired
     private FlowerRepository flowerRepository;
     
+    @Autowired
+    private AchievementService achievementService;
+    
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
     }
@@ -99,6 +102,9 @@ public class OrderService {
         
         // Clear cart
         cartItemRepository.deleteByCustomerId(customerId);
+        
+        // Check and award achievements
+        achievementService.checkOrderAchievements(customer, savedOrder);
         
         return savedOrder;
     }
